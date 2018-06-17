@@ -21,4 +21,5 @@ To get information about the sequential evolution, we can exploit the data of th
 
 ## Algorithm flow
 we combined a series of feature extraction methods with deep learning framework to predict lysine acetylation sites and got better results. Two ways were adopted. One way was training the model by different coding schemes respectively. Another was combining six types of encoding schemes with F-score to train the model. The flow as shown below:
-<img src="/DeepAcet/tree/master/Picture/Fig1.tif">  
+<img src="https://github.com/Sunmile/DeepAcet/raw/master/Picture/Fig1.png">  
+![](https://github.com/Sunmile/DeepAcet/raw/master/Picture/Fig1.png)<br>
