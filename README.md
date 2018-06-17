@@ -12,17 +12,17 @@ A deep learning framework to predict the lysine acetylation sites in protein
 
 ## Introduction of six encoding method
 ### One-hot encoding
-The amino acids within a small range around the acetylation site are primary sequence features and have proven to be useful information for lysine acetylation sites prediction in previous studies.These features can be used to represent protein sequences.
+The amino acids within a small range around the acetylation site are primary sequence features and have proven to be useful information for lysine acetylation sites prediction in previous studies.These features can be used to represent protein sequences [[1]](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0015411).
 ### BLOSUM62 matrix
-BLOSUM matrices have belonged to the most common substitution matrix series for protein homology search and sequence alignments since their publication in 1992. Essential characters of protein evolution can be learned from analysis of aligned protein sequences.
+BLOSUM matrices have belonged to the most common substitution matrix series for protein homology search and sequence alignments since their publication in 1992. Essential characters of protein evolution can be learned from analysis of aligned protein sequences[[2]](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-016-1060-3) [[3]](https://www.sciencedirect.com/science/article/pii/S0375960107016271).
 ### Composition of K-space amino acid pairs(CKSAAP)
 The CKSAAP encoding scheme reflects the information of amino acid pairs in small range within the peptides.
 ### Information gain(IG)
 Shannon Entropy was defined as a unique function that represents the average amount of information for a set of objects according to their probabilities. It can be used to measure the conservation of amino acids in fragments.
 ### Physicochemical and biochemical properties
-AAindex is a database of numerical indices representing various physicochemical and biochemical properties of amino acids. There are 566 entries in Amino Acid Index Database.
+AAindex is a database of numerical indices representing various physicochemical and biochemical properties of amino acids [[4]](https://academic.oup.com/nar/article/36/suppl_1/D202/2508449). There are 566 entries in Amino Acid Index Database.
 ### Position-specific scoring matrix(PSSM)
-To get information about the sequential evolution, we can exploit the data of the position-specific scoring matrix.
+To get information about the sequential evolution, we can exploit the data of the position-specific scoring matrix [[5]](http://pubs.rsc.org/en/Content/ArticleLanding/2017/MB/C7MB00180K#!divAbstract).
 
 ## Algorithm flow
 we combined a series of feature extraction methods with deep learning framework to predict lysine acetylation sites and got better results. Two ways were adopted. One way was training the model by different coding schemes respectively. Another was combining six types of encoding schemes with F-score to train the model. The flow as shown below:
