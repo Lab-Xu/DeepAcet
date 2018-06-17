@@ -1,4 +1,4 @@
-function BLOSUM62_code= BLOSUM62( seq )%seq为输入的序列
+function BLOSUM62_code= BLOSUM62( seq )
 BLOSUM =[
 
      4    -1    -2    -2     0    -1    -1     0    -2    -1    -1    -1    -1    -2    -1     1     0    -3    -2     0  0
@@ -22,25 +22,22 @@ BLOSUM =[
     -2    -2    -2    -3    -2    -1    -2    -3     2    -1    -1    -2    -1     3    -3    -2    -2     2     7    -1  0
      0    -3    -3    -3    -1    -2    -2    -3    -3     3     1    -2     1    -1    -2    -2     0    -3    -1     4  0
      0    0     0      0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0  1];
- %考虑到缺失氨基酸“O”，将原有的BLOSUM62矩阵扩展为21×21的矩阵，即在20种氨基酸的编码上再加上一维X，
- %而缺失氨基酸“O” 用 （0，0，0，0,0，0，0，0，0，0,0，0，0，0，0，0，0，0，0，0，1）来表示。
+ 
  B=['A'    'R'    'N'    'D'    'C'    'Q'    'E'  ...
     'G'    'H'    'I'    'L'    'K'    'M'    'F' ...
-    'P'    'S'    'T'    'W'    'V'    'Y'   'X'];%氨基酸序列对应的字母
-    [m,n]=size(seq);%seq矩阵的大小
+    'P'    'S'    'T'    'W'    'V'    'Y'   'X'];
+    [m,n]=size(seq);
     matrix_code1=[];  matrix_code2=[];  BLOSUM62_code=[];
     for i=1:m
-        matrix_code2=[];%将每行的编码找到后，将matrix_code2清空用来存放下一行的编码
-        %对seq按照行进行循环，找到该行每一列氨基酸对应的编码
+        matrix_code2=[];
         for j=1:n
             for k=1:21
                 if seq(i,j)==B(k)
-                    matrix_code1=[BLOSUM(k,:)];%找到序列中每个字母对应的氨基酸序列字母并编码
+                    matrix_code1=[BLOSUM(k,:)];
                 end
             end
-            matrix_code2=[matrix_code2, matrix_code1];%seq每行的编码
-        end
-       BLOSUM62_code=[BLOSUM62_code;matrix_code2];%seq矩阵的编码
+            matrix_code2=[matrix_code2, matrix_code1];
+       BLOSUM62_code=[BLOSUM62_code;matrix_code2];
     end
     
 end

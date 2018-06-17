@@ -1,9 +1,4 @@
 function AAIndex_composition=AAIndex(Seq)
-%导入iPTM-mLys(即所需数据)的Seq列，输入Seq=cell2mat(iPTMmLys)；即可运行程序出结果
-% Seq: N*M;
-% AAIndex_composition: N*(M*544);
-% N: 行数,表示数据个数;
-% M: 列数,表示序列长度，544为选取的AAIndex中的特征数目
 
 model=['A'    'R'    'N'    'D'    'C'    'Q'    'E'  ...
     'G'    'H'    'I'    'L'    'K'    'M'    'F' ...  
@@ -561,7 +556,6 @@ for b=1:q
  AAindexModelscale(a,b)=(AAindexModel(a,b)-M2)/(M1-M2);
 end
 end
-%556-563行在将数据归一化
 AAindexModelscale;
 [m,n]=size(Seq);
 AAIndex_composition=[];
@@ -577,15 +571,5 @@ for i=1:m
     end
     AAIndex_composition= [AAIndex_composition; AAIndex_row];
 end
-% for i=1:m
-%     AAIndex_row=[];
-%     for j=1:n
-%         for l=1:21 
-%             model_p=find(Seq(i,j)==model(l)); 
-%         end
-%         AAIndex_ele=AAindexModel(model_p,:);
-%         AAIndex_row=[AAIndex_row, AAIndex_ele];
-%     end
-%     AAIndex_composition= [AAIndex_composition; AAIndex_row];
-% end
+
     

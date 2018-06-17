@@ -8,7 +8,7 @@ import math
 from sklearn.metrics import auc
 
 
-def readcsvfile(filename): #读文件，feature和tabel合并在一起
+def readcsvfile(filename): 
     list1=[] #features
     list2=[] #labels
     with open(filename) as f:
@@ -25,11 +25,8 @@ def readcsvfile(filename): #读文件，feature和tabel合并在一起
             list2.append(label)
     return list1,list2
 
-#每个批次的大小
 batch_size=40
-#计算一共有多少个批次
 
-#参数概要
 def variable_summaries(var):
     with tf.name_scope('summaries'):
         mean=tf.reduce_mean(var)
@@ -42,18 +39,15 @@ def variable_summaries(var):
     tf.summary.histogram('histogram',var)
 
 with tf.name_scope('input'):
-    #定义2个placeholder代表实际值
     x=tf.placeholder(tf.float32,[None,651])
     y=tf.placeholder(tf.float32,[None,2])
     keep_prob=tf.placeholder(tf.float32)
 
-#创建一个简单的softmax神经网络
 lr=tf.Variable(0.001,dtype=tf.float32)
 with tf.name_scope('layer'):
     with tf.name_scope('w1'):
         W1=tf.Variable(tf.truncated_normal([651,20],stddev=0.1))
         variable_summaries(W1)
-# W1=tf.Variable(tf.zeros([651,20]))
     with tf.name_scope('b1'):
         b1=tf.Variable(tf.zeros([20])+0.1)
         variable_summaries(b1)
@@ -65,7 +59,6 @@ with tf.name_scope('layer'):
     with tf.name_scope('w2'):
         W2=tf.Variable(tf.truncated_normal([20,20],stddev=0.1))
         variable_summaries(W2)
-# W2=tf.Variable(tf.zeros([20,20]))
     with tf.name_scope('b2'):
         b2=tf.Variable(tf.zeros([20])+0.1)
         variable_summaries(b2)
@@ -116,56 +109,12 @@ with tf.name_scope('layer'):
     with tf.name_scope('softmax'):
         prediction=tf.nn.softmax(tf.matmul(L5_drop,W6)+b6)
 
-    # with tf.name_scope('w5'):
-    #     W5=tf.Variable(tf.truncated_normal([20,20],stddev=0.1))
-    #     variable_summaries(W5)
-    # with tf.name_scope('b5'):
-    #     b5=tf.Variable(tf.zeros([20])+0.1)
-    #     variable_summaries(b5)
-    # with tf.name_scope('tanh'):
-    #     L5=tf.nn.tanh(tf.matmul(L4_drop,W5)+b5)
-    # with tf.name_scope('L5_drop'):
-    #     L5_drop=tf.nn.dropout(L5,keep_prob)
-
-    # with tf.name_scope('w6'):
-    #     W6=tf.Variable(tf.truncated_normal([20,20],stddev=0.1))
-    #     variable_summaries(W6)
-    # with tf.name_scope('b6'):
-    #     b6=tf.Variable(tf.zeros([20])+0.1)
-    #     variable_summaries(b6)
-    # with tf.name_scope('tanh'):
-    #     L6=tf.nn.tanh(tf.matmul(L5_drop,W6)+b6)
-    # with tf.name_scope('L6_drop'):
-    #     L6_drop=tf.nn.dropout(L6,keep_prob)
-    #
-    # with tf.name_scope('w7'):
-    #     W7=tf.Variable(tf.truncated_normal([20,20],stddev=0.1))
-    #     variable_summaries(W7)
-    # with tf.name_scope('b7'):
-    #     b7=tf.Variable(tf.zeros([20])+0.1)
-    #     variable_summaries(b7)
-    # with tf.name_scope('tanh'):
-    #     L7=tf.nn.tanh(tf.matmul(L6_drop,W7)+b7)
-    # with tf.name_scope('L7_drop'):
-    #     L7_drop=tf.nn.dropout(L7,keep_prob)
-    #
-    # with tf.name_scope('w6'):
-    #     W6=tf.Variable(tf.truncated_normal([20,2],stddev=0.1))
-    #     variable_summaries(W6)
-    # with tf.name_scope('b6'):
-    #     b6=tf.Variable(tf.zeros([2])+0.1)
-    #     variable_summaries(b6)
-    # with tf.name_scope('softmax'):
-    #     prediction=tf.nn.softmax(tf.matmul(L5_drop,W6)+b6)
-
 with tf.name_scope('loss'):
-    #交叉熵代价函数
     loss=tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y,logits=prediction))
     tf.summary.scalar('loss', loss)
 with tf.name_scope('train'):
     train_step=tf.train.AdamOptimizer(lr).minimize(loss)
 
-#结果存放在一个布尔型列表中
 correct_prediction=tf.equal(tf.argmax(y,1),tf.argmax(prediction,1))
 accuracy=tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 
@@ -198,7 +147,6 @@ def ROC(prob,test_label,drawROC,Is_ten_cross):
         plt.ylim([-0.01, 01.01])
         plt.ylabel('True Positive Rate')
         plt.xlabel('False Positive Rate')
-        # plt.show()
         if Is_ten_cross==0:
             plt.savefig("./Picture/DNN_ROC"+str(drawROC)+".png")
         else:
@@ -234,7 +182,6 @@ def Save_evaluation(data,name):
 
 
 def DNN(train_file,test_file,Isrestore):
-    # 合并所有的summary
     merged = tf.summary.merge_all()
     MaxACC, MaxAUC=0,0
     target=[]
@@ -254,16 +201,15 @@ def DNN(train_file,test_file,Isrestore):
                 for batch in range(n_batch):
                     batch_xs = train_feature[batch * batch_size:(batch + 1) * batch_size]
                     batch_ys = train_label[batch * batch_size:(batch + 1) * batch_size]
-                    sess.run(train_step, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.0})  # 训练0.7
+                    sess.run(train_step, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.0})
                     summary= sess.run(merged, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.0})
             else:
                 saver.restore(sess, './Model/DNN_model_' + str(Isrestore) + '.ckpt')
             test_acc = sess.run(accuracy, feed_dict={x: test_feature, y: test_label, keep_prob: 1.0})
             train_acc = sess.run(accuracy, feed_dict={x: train_feature, y: train_label, keep_prob: 1.0})
-            # print("Iter " + str(epoch+1) + ", Test Accuracy " + str(test_acc) + ", Train Accuracy " + str(train_acc))
             test_prob = sess.run(prediction, feed_dict={x: test_feature, y: test_label, keep_prob: 1.0})
             test_pre = JudgePositive(test_prob, 0.6)
-            writer.add_summary(summary, epoch)  # 将summary写入到logs中
+            writer.add_summary(summary, epoch) 
             for c in range(len(test_pre)):
                 if test_pre[c] == test_label[c][0]:
                     if test_pre[c] == 1:
@@ -282,8 +228,6 @@ def DNN(train_file,test_file,Isrestore):
             if Isrestore == 0:
                 target.append([Accuracy,Specitivity,Sensitivity,AUC])
                 Save_csv([TPR,FPR],'DNN_iter'+str(epoch+1)+'.csv')
-            # print("number:"+str(len(test_pre))+"\nAccuracy:" + str(Accuracy) + "\nSpecitivity:" + str(
-            #     Specitivity) + "\nSensitivity:" + str(Sensitivity) + "\nAUC:" + str(AUC))
             if Isrestore == 0:
                 if Accuracy>MaxACC:
                     MaxACC=Accuracy
@@ -293,11 +237,7 @@ def DNN(train_file,test_file,Isrestore):
                     resultAUC = [epoch + 1,len(test_pre), Accuracy, Specitivity, Sensitivity, AUC]
                 saver.save(sess, './Model/DNN_model_' + str(epoch + 1) + '.ckpt')
             else:
-                break
-            # if epoch == resultAUC[0]-1:
-            #     saver.save(sess, "./net/DNN.model")
-        # print(test_prob)
-        # print(test_pre)
+                break)
         if Isrestore==0:
             Save_target(target)
             print("MaxACC: Iter: "+str(resultACC[0])+ "\nnumber:" + str(resultACC[1]) + "\nAccuracy:" + str(resultACC[2]) + "\nSpecitivity:" + str(
@@ -335,7 +275,7 @@ def K_cross(train_file,test_file,k):
                     for batch in range(n_batch):
                         batch_xs = train_feature[batch * batch_size:(batch + 1) * batch_size]
                         batch_ys = train_label[batch * batch_size:(batch + 1) * batch_size]
-                        sess.run(train_step, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.0})  # 训练0.
+                        sess.run(train_step, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.0}) 
                     test_prob= sess.run(prediction, feed_dict={x: test_feature, y: test_label, keep_prob: 1.0})
                     test_pre = JudgePositive(test_prob, 0.5)
                     test_pre_combine.extend(test_pre)
@@ -365,8 +305,6 @@ def K_cross(train_file,test_file,k):
                 if AUC > cross_MaxAUC:
                     cross_MaxAUC = AUC
                     cross_resultAUC = [epoch + 1, len(test_prob_combine), Accuracy, Specificity, Sensitivity, AUC]
-
-                    #independent dataset
                 test_prob = sess.run(prediction, feed_dict={x: test_feature, y: test_label, keep_prob: 1.0})
                 test_pre = JudgePositive(test_prob, 0.5)
 
@@ -387,7 +325,7 @@ def K_cross(train_file,test_file,k):
                 AUC, TPR, FPR = ROC(test_prob, test_label, epoch + 1, 0)
                 MCC = (TP * TN - FP * FN) / math.sqrt((TP + FP) * (TP + FN) * (TN + FP) * (TN + FN))
                 evaluation.append([Accuracy, Specificity, Sensitivity, AUC,MCC])
-                Save_evaluation(evaluation, 'independent_evaluation' + str(epoch + 1) + '.csv')  # 保存AUC,ACC,SP
+                Save_evaluation(evaluation, 'independent_evaluation' + str(epoch + 1) + '.csv') 
                 Save_csv([TPR, FPR], 'DNN_epoch_independent' + str(epoch + 1) + '.csv')
                 if Accuracy > MaxACC:
                     MaxACC = Accuracy
