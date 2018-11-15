@@ -6,10 +6,10 @@ A deep learning framework to predict the lysine acetylation sites in protein
 * Tensorflow =1.6.0
 
 ## File description
-* In the "DeepLearning_method" folder, there are six python files. Each file is a implement of a prediction using one encoding method with deeplearning framework.
-* In the "Encoding_method" folder, there are six matlab files. Each file is a implement of  one encoding method.
-* In the "N_fold_cross_validation" folder, there are four python files. Each file is a n_fold cross validation of DeepAcet.
-
+* There are seven sub-folders in the "Deep Learning" folder. The folders named by the six coding schemes are python code, and the predictors are obtained by performing 4-fold cross-validation on the feature vectors obtained via different encoding methods. 
+* There are six different encoding schemes for MATLAB code in the folder named "Encoding schemes" which are AAindex, BLOSUM62, CKSAAP (Composition of K-space amino acid pairs), IG (Information gain) One-hot and PSSM (Position-specific scoring matrix). These programs can encode protein fragments into feature vectors of different dimensions.
+* The folder named "Protein capture" is a protein interception program which is capable of interpreting proteins as lysine-centered fragments with equal length. (Note: Put the FASTA file and the protein ID file in this folder when running this program)
+* The folder named "Feature Combination" contains the optimal model obtained by combining six coding methods with F-score. (Note: put the coded test set into the folder when running this program and all files in this folder should be in the same path)
 ## Introduction of six encoding method
 ### One-hot encoding
 The amino acids within a small range around the acetylation site are primary sequence features and have proven to be useful information for lysine acetylation sites prediction in previous studies.These features can be used to represent protein sequences [[1]](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0015411).
