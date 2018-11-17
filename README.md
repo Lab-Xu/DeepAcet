@@ -33,16 +33,12 @@ We constructed a feedforward neural network of six layers (including input and o
 
 ## Results
 * Comparisons of fragments information between lysine acetylation and non-acetylation sites. (A) The percentage of amino acids in the lysine acetylation and the non-acetylation fragments. (B) A pLogo of compositional bias around the lysine acetylation and non-acetylation sites
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig3A.png"> 
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig3B.png"> 
+  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig5.png"> 
 * Performance measures of different features. (A)the Accuracy, Specificity, Sensitivity, AUC values of different features. (B)ROC curves and their AUC values of different features.
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig4A.png"> 
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig4B.png"> 
-* The distribution of the number of each type of features and their corresponding F-score sums in the optimized feature set. (A) The distribution of the number of each type of features. (B) The distribution of F-score sums of each type of features.
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig5A.png"> 
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig5B.png"> 
+  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig3.png"> 
+* The distribution of the number of each type of features and their corresponding F-score sums in the optimized feature set. The distribution of F-score sums of each type of features.
+  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig6.png"> 
 * Performance measures of the optimized selected predictors. (A) the Accuracy, Specificity, Sensitivity, AUC values in 4-,6-,8-,10-fold cross-validation. (B)ROC curves in and their AUC values in 4-,6-,8-,10-fold cross-validation.
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig6A.png"> 
-  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig6B.png"> 
+  * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig4.png"> 
 * The ROC curves for the independent test set.
   * <img src="https://github.com/Sunmile/DeepAcet/blob/master/Picture/Fig7.png"> 
